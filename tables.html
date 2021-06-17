@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
     <title>Hot Restaurant</title>
 </head>
 <body>
     <header>
         <div class="s12 grey center">
-            <h2 id="titleText"><span class="material-icons">restaurant_menu</span> Hot Restaurant</h2>
+            <h2 id="titleText" style="margin-top: 0;"><span class="material-icons">restaurant_menu</span> Hot Restaurant</h2>
             <div class="divider"></div>
             <h4>Book your seat before they're all gone!</h4>
-            <div id="buttonDiv">
+            <div id="buttonDiv" style="padding-bottom: 1em">
                 <a class="waves-effect btn green white-text" href="/">
                     <span class="material-icons">home</span> Home
                 </a>
@@ -26,7 +26,7 @@
             </div>
         </div>
     </header>
-    <main> 
+    <main style="margin-top: 1em"> 
         <div class="container">
             <div class="row">
                 <section id="tables">
@@ -36,6 +36,55 @@
         </div>
     </main>
 
-    <script src="./src/pushReservations.js"></script>
+    <script type="text/javascript">
+    const securedTables = document.getElementById('tables');
+
+fetch('/api/tables')
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+
+        let base = 0;
+        let extra = 0;
+
+        data.forEach(element => {
+            base++;
+            if (base <= 5) {
+                let tableNumber = base;
+                var tableText = `Table #${tableNumber}`;
+            } else {
+                extra++;
+                let tableNumber = extra;
+                var tableText = `Waiting #${tableNumber}`;
+            }
+
+            let columnEl = document.createElement('div');
+            let contentEl = document.createElement('div');
+            let titleEl = document.createElement('span');
+            let nameEl = document.createElement('p');
+            let idEl = document.createElement('p');
+            let phoneEl = document.createElement('p');
+            let emailEl = document.createElement('p');
+
+            columnEl.setAttribute('class', 'col s12 card');
+            contentEl.setAttribute('class', 'card-content');
+            titleEl.setAttribute('class', 'card-title');
+            titleEl.textContent = tableText;
+            nameEl.textContent = `Name: ${element.name}`;
+            idEl.textContent = `ID: ${element.id}`;
+            phoneEl.textContent = `Phone: ${element.phone}`;
+            emailEl.textContent = `Email: ${element.email}`;
+
+            contentEl.appendChild(titleEl, nameEl, idEl, phoneEl, emailEl);
+            contentEl.appendChild(nameEl);
+            contentEl.appendChild(idEl);
+            contentEl.appendChild(phoneEl);
+            contentEl.appendChild(emailEl);
+            columnEl.appendChild(contentEl);
+
+            securedTables.appendChild(columnEl);
+        });
+    })
+    </script>
 </body>
 </html>

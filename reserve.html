@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
     <title>Hot Restaurant</title>
 </head>
 <body>
     <header>
         <div class="s12 grey center">
-            <h2 id="titleText"><span class="material-icons">restaurant_menu</span> Hot Restaurant</h2>
+            <h2 id="titleText" style="margin-top: 0;"><span class="material-icons">restaurant_menu</span> Hot Restaurant</h2>
             <div class="divider"></div>
             <h4>Book your seat before they're all gone!</h4>
-            <div id="buttonDiv">
+            <div id="buttonDiv" style="padding-bottom: 1em">
                 <a class="waves-effect btn blue white-text" href="/tables">
                     <span class="material-icons">view_list</span> View Tables
                 </a>
@@ -26,7 +26,7 @@
             </div>
         </div>
     </header>
-    <main> 
+    <main style="margin-top: 1em"> 
         <div class="row container">
             <form class="s12">
                 <div class="row">
@@ -64,6 +64,58 @@
         </div>
     </main>
 
-    <script src="./src/makeReservation.js"></script>
+    <script type="text/javascript">
+    // Import table constructor
+function Table(name, id, email, phone) {
+    this.name = name;
+    this.id = id;
+    this.email = email;
+    this.phone = phone;
+};
+
+// Get add button
+const addBtn = document.getElementById('addBtn');
+
+// Make empty arrays for tables seated and waitlist reservations
+const securedTables = [];
+const waitingTables = [];
+
+// Event listener for button
+addBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    let tableName = document.getElementById('name').value.trim();
+    let tableId = document.getElementById('id').value.trim();
+    let tableEmail = document.getElementById('email').value.trim();
+    let tablePhone = document.getElementById('phone').value.trim();
+
+    let newReservation = new Table(tableName, tableId, tableEmail, tablePhone);
+
+    if ((securedTables.length + 1) < 5) {
+        newReservation.table = `Table #${securedTables.length + 1}`;
+        securedTables.push(newReservation);
+    } else {
+        newReservation.table = `Table #${waitingTables.length + 1}`;
+        waitingTables.push(newReservation);
+    }
+
+    fetch('/api/tables', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newReservation)
+    }).then(
+        (response) => response.json()
+    ).then((data) => {
+        console.log(data);
+        if (securedTables) {
+            alert(`Making reservation for ${data.name}`)
+        }
+    }).catch((err) => {
+        if (err) throw err;
+    })
+})
+    </script>
 </body>
 </html>

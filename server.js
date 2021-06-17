@@ -6,7 +6,14 @@ const app = express();
 var PORT = process.env.PORT || 3001;
 
 // Empty array for reservations to be added
-const reservations = [];
+const reservations = [
+  {
+    name: 'Jared Donovan',
+    id: '6',
+    phone: '8153153513',
+    email: 'jdono100@gmail.com'
+  }
+];
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
