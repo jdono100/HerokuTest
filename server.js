@@ -15,7 +15,7 @@ app.use(express.json());
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'home.html')));
 app.get('/reserve', (req, res) => res.sendFile(path.join(__dirname, 'reserve.html')));
 app.get('/tables', (req, res) => res.sendFile(path.join(__dirname, 'tables.html')));
-app.get('/api/tables', (req, res) => res.join(reservations));
+app.get('/api/tables', (req, res) => res.json(reservations));
 
 app.post('/api/tables', (req, res) => {
     const newReservation = req.body;
