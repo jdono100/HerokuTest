@@ -12,19 +12,58 @@
 </head>
 <body>
     <header>
-            <div class="s12 grey center">
-                <h2 id="titleText"><span class="material-icons">restaurant_menu</span> Hot Restaurant</h2>
-                <div class="divider"></div>
-                <h4>Book your seat before they're all gone!</h4>
-                <div id="buttonDiv">
-                    <a class="waves-effect btn blue white-text" href="/tables.html">
-                        <span class="material-icons">view_list</span> View Tables
-                    </a>
-                    <a href="/home.html" class="waves-effect btn green white-text">
-                        <span class="material-icons">home</span> Home
-                    </a>
-                </div>
+        <div class="s12 grey center">
+            <h2 id="titleText"><span class="material-icons">restaurant_menu</span> Hot Restaurant</h2>
+            <div class="divider"></div>
+            <h4>Book your seat before they're all gone!</h4>
+            <div id="buttonDiv">
+                <a class="waves-effect btn blue white-text" href="/tables">
+                    <span class="material-icons">view_list</span> View Tables
+                </a>
+                <a href="/" class="waves-effect btn green white-text">
+                    <span class="material-icons">home</span> Home
+                </a>
             </div>
+        </div>
     </header>
+    <main> 
+        <div class="row container">
+            <form class="s12">
+                <div class="row">
+                    <div class="input-field s12">
+                        <input type="text" id="name" class="validate">
+                        <label class="active" for="name">Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field s12">
+                        <input type="text" id="id" class="validate">
+                        <label class="active" for="id">ID</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field s12">
+                        <input type="text" id="email" class="validate">
+                        <label class="active" for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field s12">
+                        <input type="text" id="phone" class="validate">
+                        <label class="active" for="phone">Phone</label>
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class="s12 addBtnDiv">
+                        <button id="addBtn">
+                            <h6><span class="material-icons">add</span> Add Reservation</h6>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="./src/makeReservation.js"></script>
 </body>
 </html>
